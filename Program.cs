@@ -6,15 +6,34 @@ var app = builder.Build();
 const int SHIFT = 3;
 
 // root endpoint
-app.MapGet("/", () => "Kryptering och avkryptering av text API!");
+app.MapGet("/", () => "Caesarkryptering och avkryptering av text API!");
 
-// endpoint for encryption
+// endpoint for encryption, Exempel: /encrypt?text=Hej abc!
+app.MapGet("/encrypt", (string text) =>
+{
+    if (string.IsNullOrWhiteSpace(text))
+    {
+        return Results.BadRequest("Text parameter krävs.");
+    }
 
-// endpoint for decryption
+    return Results.Ok(CaesarChiffer(text, SHIFT));
+
+});
+
+// endpoint for decryption Exempel: /decrypt?text=Kho def!
+app.MapGet("/decrypt", (string text) =>
+{
+    if (string.IsNullOrWhiteSpace(text))
+    {
+        return Results.BadRequest("Text parameter krävs.");
+    }
+
+    return Results.Ok(CaesarChiffer(text, -SHIFT));
+});
 
 app.Run();
 
-// Metod för ceasar chiffer
+// === Metod för ceasar chiffer === \\
 string CaesarChiffer(string input, int shift)
 {
     const string lower = "abcdefghijklmnopqrstuvwxyzåäö";
