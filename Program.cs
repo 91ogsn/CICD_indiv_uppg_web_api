@@ -20,7 +20,7 @@ app.MapGet("/encrypt", (string text) =>
 
 });
 
-// endpoint for decryption Exempel: /decrypt?text=Kho def!
+// endpoint for decryption Exempel: /decrypt?text=Khm def!
 app.MapGet("/decrypt", (string text) =>
 {
     if (string.IsNullOrWhiteSpace(text))
